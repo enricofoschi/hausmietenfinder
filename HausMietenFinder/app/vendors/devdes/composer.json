@@ -1,0 +1,14 @@
+{
+    "name": "devdes",
+    "type": "library",
+    "description": "Set of DevDes helpers",
+    "authors": [
+        {
+            "name" : "Enrico Foschi"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "license": "LGPL-2.1"
+}

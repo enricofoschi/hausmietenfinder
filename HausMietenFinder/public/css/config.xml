@@ -1,0 +1,21 @@
+<concatenation>
+	<concatenated name="main">
+		<component>
+			<files>
+				<file>lib/bootstrap-3.1.1.css</file>
+			</files>
+		</component>
+		<component parsers="less">
+			<files>
+				<file>core/core.less</file>
+				<file>core/tags.less</file>
+				<file>core/layout.less</file>
+			</files>
+			<folders>
+				<folder>commons</folder>
+				<folder>components</folder>
+				<folder>views</folder>
+			</folders>
+		</component>
+	</concatenated>
+</concatenation>

@@ -1,0 +1,18 @@
+.flyover {
+   top: -50%;
+   overflow: hidden;
+   position: fixed;
+   width: 100%;
+   z-index: 10000;
+   transition: top 0.6s ease-out 0s;
+}
+.flyover.in {
+   top: 0%;
+} 
+.flyover-bottom {
+   bottom: 10px;
+}
+.flyover-centered {
+   top: 50%;
+   transform: translate(-50%, -50%);
+}

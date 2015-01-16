@@ -1,0 +1,87 @@
+﻿input:focus {
+    outline: 0 !important;
+}
+.required:after {
+    color: #e32;
+    content: ' *';
+    display:inline;
+}
+.input-upload-container {
+    position: relative;
+    overflow: hidden;
+
+    .input-upload {
+        position: absolute;
+	    top: 0;
+	    right: 0;
+	    margin: 0;
+	    padding: 0;
+	    font-size: 20px;
+	    cursor: pointer;
+	    opacity: 0;
+	    filter: alpha(opacity=0);
+    }
+}
+textarea.auto-size
+{
+    .transition(height, 0.2s);
+    height:54px;
+}
+.form-control.readonly-light
+{
+    background:#fff;
+    cursor:text;
+    color:#3c763d;
+}
+/* Radio Box */
+input.cool-radio {
+  border: none;
+  outline:none;
+  -webkit-appearance: none; /* remove default */
+  margin: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  vertical-align: middle;
+  box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+  background-color: hsla(150,150,150,.7);
+  background-image: -webkit-radial-gradient( hsla(120,100%,25%,1) 0%, hsla(120,100%,25%,1) 15%, hsla(120,100%,25%,.3) 28%, hsla(120,100%,25%,0) 70% );  
+  background-repeat: no-repeat;
+  -webkit-transition: background-position .15s cubic-bezier(.8, 0, 1, 1),
+  -webkit-transform .25s cubic-bezier(.8, 0, 1, 1);
+}
+input.cool-radio:checked {
+  -webkit-transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1),
+    -webkit-transform .25s cubic-bezier(0, 0, .2, 1);
+}
+input.cool-radio:active {
+  -webkit-transform: scale(1.5);
+  -webkit-transition: -webkit-transform .1s cubic-bezier(0, 0, .2, 1);
+}
+
+/* The up/down direction logic */
+input.cool-radio,
+input.cool-radio:active {
+  background-position: 0 24px;
+}
+input.cool-radio:checked {
+  background-position: 0 0;
+}
+input.cool-radio:checked ~ input.cool-radio,
+input.cool-radio:checked ~ input.cool-radio:active {
+  background-position: 0 -24px;
+}
+/* Sizes */
+input.input-sm
+{
+    padding: 3px;
+    font-size: 12px;
+    height: 30px;
+}
+input.input-lg
+{
+    padding: 10px;
+    font-size: 24px;
+    height: 45px;
+}

@@ -1,0 +1,37 @@
+<concatenations>>
+  <concatenated name="main">
+    <component>
+      <files>
+        <file>lib/jquery-1.11.1.min.js</file>
+        <file>lib/react-with-addons.js</file>
+        <file>lib/react.router.js</file>
+        <file>lib/jquery.block-ui.min.js</file>
+        <file>lib/socket.io-1.2.1.min.js</file>
+        <file>core.js</file>
+      </files>
+    </component>
+    <component parsers="jsx">
+      <files>
+        <file>routing/routing.jsx</file>
+        <file>routing/routes.jsx</file>
+      </files>
+      <folders>
+        <folder>helpers</folder>
+        <folder>components</folder>
+        <folder>views</folder>
+      </folders>
+      <files>
+        <file>init.jsx</file>
+      </files>
+    </component>
+  </concatenated>
+  <concatenated name="ltie9">
+    <component>
+      <files>
+        <file>lib/html5shiv-3.7.2.min.js</file>
+        <file>lib/html5shiv-printshiv-3.7.2.min.js</file>
+        <file>lib/es5-shim-3.4.0.js</file>
+      </files>
+    </component>
+  </concatenated>
+</concatenations>
