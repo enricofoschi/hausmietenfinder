@@ -23,6 +23,6 @@ return new \Phalcon\Config(array(
         'db' => 2
     ),
     'immobilien24' => array(
-        'api_secret'        => 'rhWNB39c0tFF6jNA'
+        'api_secret'        => '/'
     )
 ));

@@ -60,10 +60,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RedisHelper.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RedisHelper.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/services/DevDes/Data/RedisHelper.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.65346533" vertical-offset="0" max-vertical-offset="505">
+            <state vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="435">
               <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
               <folding />
             </state>
@@ -85,7 +85,7 @@
       <file leaf-file-name="services.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/services.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.791667" vertical-offset="2045" max-vertical-offset="2595">
+            <state vertical-scroll-proportion="-95.0" vertical-offset="0" max-vertical-offset="2595">
               <caret line="152" column="54" selection-start-line="152" selection-start-column="54" selection-end-line="152" selection-end-column="54" />
               <folding>
                 <element signature="e#7#37#0#PHP" expanded="true" />
@@ -97,8 +97,8 @@
       <file leaf-file-name="config.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/config.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="510">
-              <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+            <state vertical-scroll-proportion="-15.625" vertical-offset="0" max-vertical-offset="510">
+              <caret line="25" column="33" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -114,11 +114,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Immobiliaren24Service.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Immobiliaren24Service.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/services/HausMietenFinder/Immobiliaren24Service.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.0" vertical-offset="1287" max-vertical-offset="2265">
-              <caret line="89" column="44" selection-start-line="89" selection-start-column="12" selection-end-line="89" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.56435645" vertical-offset="0" max-vertical-offset="2265">
+              <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
               <folding>
                 <element signature="e#45#79#0#PHP" expanded="true" />
               </folding>
@@ -190,8 +190,8 @@
         <option value="$PROJECT_DIR$/app/tools/worker-searcher.php" />
         <option value="$PROJECT_DIR$/app/services/DevDes/Core/RedisHelper.php" />
         <option value="$PROJECT_DIR$/app/config/services.php" />
-        <option value="$PROJECT_DIR$/app/config/config.php" />
         <option value="$PROJECT_DIR$/app/services/DevDes/Data/RedisHelper.php" />
+        <option value="$PROJECT_DIR$/app/config/config.php" />
       </list>
     </option>
   </component>
@@ -1023,16 +1023,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/HausMietenFinder/Immobiliaren24Service.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.0" vertical-offset="1287" max-vertical-offset="2265">
-          <caret line="89" column="44" selection-start-line="89" selection-start-column="12" selection-end-line="89" selection-end-column="44" />
-          <folding>
-            <element signature="e#45#79#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/loader.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.875" vertical-offset="0" max-vertical-offset="480">
@@ -1062,9 +1052,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/DevDes/Data/RedisHelper.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="435">
+          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/services.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.791667" vertical-offset="2045" max-vertical-offset="2595">
+        <state vertical-scroll-proportion="-95.0" vertical-offset="0" max-vertical-offset="2595">
           <caret line="152" column="54" selection-start-line="152" selection-start-column="54" selection-end-line="152" selection-end-column="54" />
           <folding>
             <element signature="e#7#37#0#PHP" expanded="true" />
@@ -1074,17 +1072,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.75" vertical-offset="0" max-vertical-offset="510">
-          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+        <state vertical-scroll-proportion="-15.625" vertical-offset="0" max-vertical-offset="510">
+          <caret line="25" column="33" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/DevDes/Data/RedisHelper.php">
+    <entry file="file://$PROJECT_DIR$/app/services/HausMietenFinder/Immobiliaren24Service.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.65346533" vertical-offset="0" max-vertical-offset="505">
-          <caret line="27" column="5" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-          <folding />
+        <state vertical-scroll-proportion="0.56435645" vertical-offset="0" max-vertical-offset="2265">
+          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+          <folding>
+            <element signature="e#45#79#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
