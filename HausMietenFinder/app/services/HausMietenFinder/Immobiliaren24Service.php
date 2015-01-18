@@ -122,7 +122,7 @@ class Immobiliaren24Service {
             echo "Transit time: " .$transit_time;
             $distance->transit_time = $transit_time;
         }
-        
+
         $distance->save();
     }
 

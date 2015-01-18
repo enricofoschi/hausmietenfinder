@@ -121,10 +121,12 @@
 														</div>
 													</div>
 
-													<div className="house-body">
-														<span className={(house.exact_address ? '' : 'hide ') + 'label right5 label-success'}>Genaue Anschrift</span>
-
+													<div className="house-body wrappable">
 														{house.title}
+														<div className="top5 pbottom10">
+															<span className={(house.exact_address ? '' : 'hide ') + 'label right5 label-success'}>Genaue Anschrift</span>
+															<span className={'label label-primary right5 ' + (house.private_offer ? '' : 'hide')}>Von Privat</span>
+														</div>
 
 														<hr className="small" />
 
