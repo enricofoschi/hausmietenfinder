@@ -59,10 +59,13 @@ class HousesController extends ControllerBase
     }
 
     public function changeStatusAction() {
+        $this->view->disable();
 
         $data = $this->request->getJsonRawBody();
 
-        $this->immobilien24_service->ChangeDistanceStatus($data->distance_id, $data->remove);
+        $this->immobiliaren24_service->ChangeDistanceStatus($data->distance_id, $data->remove);
+
+        parent::SendJson();
     }
 }
 

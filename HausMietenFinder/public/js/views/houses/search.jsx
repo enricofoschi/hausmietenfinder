@@ -47,6 +47,9 @@
 		},
 
 		onChangeStatus: function onChangeStatus(e) {
+
+			var thisRef = this;
+
 			Helpers.UI.DOM.StopPropagation(e);
 
 			var sourceElement = $(e.target);
@@ -56,7 +59,7 @@
 			var searchService = new Services.HausMietenFinder.Distance();
 
 			searchService.changeStatus(distanceId, removeItem).then(function onSuccess(response) {
-				console.log(response);
+				thisRef.loadData();
 			});
 		},
 
@@ -96,7 +99,8 @@
 
 										return (
 											<div data-distanceid={distance._id.$id} className="house-container col-md-3 col-sm-2" key={colIndex}>
-												<div className="house-content">
+												<div className={'house-content ' + (distance.status == 1 ? 'shortlisted' : '')}>
+													<i className="fa fa-check-circle checked text-success"></i>
 													<div className="picture-container">
 														<img src={house.picture_url.replace(/60x60/g, '200x150')} className="full-width" />
 													</div>

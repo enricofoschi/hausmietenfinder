@@ -10,7 +10,7 @@ abstract class DistanceStatus
 {
     const DefaultStatus = 0;
     const Shortlisted = 1;
-    const Removed = 1;
+    const Removed = 2;
 }
 
 class Immobiliaren24Service {
@@ -123,11 +123,14 @@ class Immobiliaren24Service {
 
     public function GetSearchResults($search_id, $page) {
 
+        $match_criteria = array(
+            "search_id" => $search_id,
+            "status" => array('$in' => [DistanceStatus::Shortlisted, DistanceStatus::DefaultStatus])
+        );
+
         /* Getting Distances by Page */
         $distances = Distance::find(array(
-            array(
-                "search_id" => $search_id
-            ),
+            $match_criteria,
             "sort" => array('transit_time', 1),
             "limit" => 12,
             "skip" => ($page-1) * 12
@@ -156,9 +159,7 @@ class Immobiliaren24Service {
         /* Getting general info about available Results */
         $aggregate_info = Distance::aggregate(array(
             array(
-                '$match' => array(
-                    'search_id' => $search_id
-                )
+                '$match' => $match_criteria
             ),
             array(
                 '$group' => array(

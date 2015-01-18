@@ -4,6 +4,7 @@
 
 		.house-content
 		{
+			position:relative;
 			margin:10px;
 			background:#fff;
 			.drop-shadow();						
@@ -17,7 +18,16 @@
 
 			.house-body
 			{
-				padding:10px;
+				padding:10px;				
+			}
+
+			.checked
+			{
+				display:none;
+				right:10px;
+				top:10px;
+				position:absolute;
+				font-size:24px;
 			}
 
 			.choices-container
@@ -37,21 +47,33 @@
 
 				.choice-success
 				{
-					background:#dff0d8;
+					background: #dff0d8;
 				}
 				.choice-success:hover
 				{
-					background:#cfe0c8;
+					background: #cfe0c8;
 				}
 
 				.choice-danger
 				{
-					background:#f2dede;
+					background: #f2dede;
 				}
 				.choice-danger:hover
 				{
-					background:#e2cece;
+					background: #e2cece;
 				}
+			}
+		}
+
+		.shortlisted
+		{
+			.checked
+			{
+				display: block;
+			}
+			.picture-container
+			{
+				background: #dff0d8;
 			}
 		}
 	}

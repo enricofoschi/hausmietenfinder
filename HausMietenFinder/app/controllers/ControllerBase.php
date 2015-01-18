@@ -36,7 +36,12 @@ class ControllerBase extends Controller
         $this->response->send();
     }
 
-    public function SendJson($object) {
+    public function SendJson($object = null) {
+
+        if(!$object) {
+            $object = new \stdClass();
+        }
+
         $this->view->disable();
         $this->response->setHeader("Content-Type", "application/json");
         $this->response->setContent(json_encode($object));

@@ -9,14 +9,14 @@
 			});
 		};
 
-		self.changeStatus = function(distanceId, remove) {
+		self.changeStatus = function(distanceId, removeItem) {
 			return Helpers.Core.Communication.Post({
 				url: 'houses/changestatus',
 				data: {
 					distance_id: distanceId,
 					remove: removeItem 
 				}
-			})
+			});
 		};
 	}
 
