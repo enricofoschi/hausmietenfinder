@@ -56,7 +56,7 @@ class Immobiliaren24Service {
                 $result = simplexml_load_string($sanitized_data);
 
                 $house = House::findFirst(array(
-                    array("immobilien24_id" => $result->realEstateId)
+                    array("immobilien24_id" => (int)$result->realEstateId)
                 ));
 
                 if (!$house) {
@@ -131,7 +131,7 @@ class Immobiliaren24Service {
         /* Getting Distances by Page */
         $distances = Distance::find(array(
             $match_criteria,
-            "sort" => array('transit_time', 1),
+            "sort" => array('transit_time' => 1),
             "limit" => 12,
             "skip" => ($page-1) * 12
         ));
