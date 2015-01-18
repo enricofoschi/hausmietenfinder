@@ -10,7 +10,15 @@ class ConfigHelper {
     public static function GetMainConfig() {
 
         return CacheHelper::GetStatic("main_config", function() {
-            return include CoreHelper::GetAppRoot() . "config/config.php";
+            $config = include CoreHelper::GetAppRoot() . "config/config.php";
+            $pwd_file = CoreHelper::GetAppRoot() . "/config/main.pwd.php";
+            if(file_exists($pwd_file)) {
+                include $pwd_file;
+            } else {
+                include CoreHelper::GetAppRoot() . "/config/main.pwd.removeme.php";
+            }
+
+            return $config;
         });
     }
 

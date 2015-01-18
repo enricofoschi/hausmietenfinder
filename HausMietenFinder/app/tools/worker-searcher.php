@@ -6,9 +6,7 @@
  * Time: 19:29
  */
 
-$config = include __DIR__ . "/../config/config.php";
-include __DIR__ . "/../config/loader.php";
-include __DIR__ . "/../config/services.php";
+include __DIR__ . "/../../public/loader.php";
 
 use HausMietenFinder\Models\Search;
 use DevDes\Helpers\Core\FormatingHelper;

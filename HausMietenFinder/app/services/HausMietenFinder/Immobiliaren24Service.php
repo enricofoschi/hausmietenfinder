@@ -4,7 +4,6 @@ namespace HausMietenFinder\Services;
 
 use HausMietenFinder\Models\House;
 use HausMietenFinder\Models\Distance;
-use DevDes\Helpers\Core\ArraysHelper;
 
 abstract class DistanceStatus
 {
@@ -89,7 +88,7 @@ class Immobiliaren24Service {
         $distance = Distance::findFirst(array(
             array(
                 "search_id" => $search_id,
-                "house_id" => $house_id
+                "house._id" => $house->getId()
             )
         ));
 
@@ -97,7 +96,7 @@ class Immobiliaren24Service {
             $distance = new Distance();
             $distance->status = DistanceStatus::DefaultStatus;
             $distance->search_id = $search_id;
-            $distance->house_id = $house_id;
+            $distance->house = json_decode(json_encode($house));
         }
 
         $di = \Phalcon\DI::getDefault();
@@ -135,26 +134,6 @@ class Immobiliaren24Service {
             "limit" => 12,
             "skip" => ($page-1) * 12
         ));
-
-        /* Identifying Ids */
-        $house_ids = array_map(function ($e) {
-            return new \MongoId($e->house_id);
-        }, $distances);
-
-        /* Getting Distinct Houses */
-        $houses = House::find(array(
-            array(
-                "_id" => array('$in' => $house_ids)
-            )
-        ));
-
-        /* Matching Houses -> Distances */
-        foreach($distances as $distance)
-        {
-            $distance->house = ArraysHelper::FindFirst($houses, function($house) use($distance) {
-                return $house->getId()->{'$id'} == $distance->house_id;
-            });
-        }
 
         /* Getting general info about available Results */
         $aggregate_info = Distance::aggregate(array(

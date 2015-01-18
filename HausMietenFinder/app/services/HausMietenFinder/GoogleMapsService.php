@@ -3,6 +3,7 @@
 namespace HausMietenFinder\Services;
 
 use DevDes\Helpers\Core\TimeHelper;
+use DevDes\Helpers\Core\ConfigHelper;
 
 class GoogleMapsService {
 
@@ -30,12 +31,13 @@ class GoogleMapsService {
 
         /* Building the querystring and querying google */
         $ch = curl_init();
-        $gmap_curl = "http://maps.googleapis.com/maps/api/directions/json?" .
+        $gmap_curl = "https://maps.googleapis.com/maps/api/directions/json?" .
             "origin=" . urlencode($address_str) .
             "&destination=" . $search->latitude . "," . $search->longitude .
             "&sensor=false" .
             "&departure_time=" . TimeHelper::GetTicks('next tuesday, 7am') .
-            "&mode=transit&alternatives=true";
+            "&mode=transit&alternatives=true" .
+            "&key=" . ConfigHelper::GetMainConfig()["pwd"]["google_api"];
 
         curl_setopt($ch, CURLOPT_URL, $gmap_curl);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
