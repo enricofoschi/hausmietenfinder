@@ -103,6 +103,8 @@ class Immobiliaren24Service {
 
         $distance->house = json_decode(json_encode($house));
 
+        unset($distance->house->_id);
+
         $di = \Phalcon\DI::getDefault();
 
         $loop = 0;
@@ -120,7 +122,7 @@ class Immobiliaren24Service {
             echo "Transit time: " .$transit_time;
             $distance->transit_time = $transit_time;
         }
-
+        
         $distance->save();
     }
 
