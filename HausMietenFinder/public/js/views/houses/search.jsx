@@ -35,7 +35,8 @@
 				} else {
 					thisRef.setState({
 						distances: response.distances,
-						total: response.total_count
+						total: response.total_count,
+						search: response.search
 					});
 					Helpers.UI.DOM.ScrollTo($(thisRef.getDOMNode()));
 				}
@@ -121,7 +122,24 @@
 													</div>
 
 													<div className="house-body">
+														<span className={(house.exact_address ? '' : 'hide ') + 'label right5 label-success'}>Genaue Anschrift</span>
+
 														{house.title}
+
+														<hr className="small" />
+
+														<div className="row">
+															<div className="col-xs-6 text-center">
+																<a href={'http://www.immobilienscout24.de/expose/' + house.immobilien24_id} target="_blank">
+																	<i className="fa fa-home"></i> Öffnen
+																</a>
+															</div>
+															<div className="col-xs-6 text-center">
+																<a href={'https://www.google.com/maps/dir/' + encodeURIComponent(house.address_str) + '/' + encodeURIComponent(thisRef.state.search.location)} target="_blank">
+																	<i className="fa fa-map-marker"></i> Karte
+																</a>
+															</div>
+														</div>
 													</div>		
 
 													<div className="border-top choices-container">

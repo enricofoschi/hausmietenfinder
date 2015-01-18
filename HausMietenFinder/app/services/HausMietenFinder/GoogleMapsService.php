@@ -10,24 +10,7 @@ class GoogleMapsService {
     public function GetDistanceMinutes($house, $search) {
 
         /* Formatting the address */
-        $address = $house->address;
-        $address_str = "";
-        if($address->wgs84Coordinate) {
-            $address_str = $address->wgs84Coordinate->latitude . "," . $address->wgs84Coordinate->longitude;
-        } else {
-            if ($address->street) {
-                $address_str .= $address->street;
-                if ($address->houseNumber) {
-                    $address_str .= " " . $address->houseNumber;
-                }
-                $address_str .= ", ";
-            }
-            $address_str .= $address->postcode . ", ";
-            if ($address->quarter) {
-                $address_str .= $address->quarter . ", ";
-            }
-            $address_str .= $address->city;
-        }
+        $address_str = $house->getAddressForGoogleMap();
 
         /* Building the querystring and querying google */
         $ch = curl_init();

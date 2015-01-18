@@ -9,8 +9,6 @@
     },
 
     onClick: function(e) {
-      //Helpers.UI.DOM.StopPropagation(e);
-console.log($(e.target).attr("data-page"))
       this.props.paging.onPageChange(parseInt($(e.target).attr("data-page")));
     },
 

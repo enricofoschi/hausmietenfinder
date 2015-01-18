@@ -4,6 +4,7 @@ namespace HausMietenFinder\Services;
 
 use HausMietenFinder\Models\House;
 use HausMietenFinder\Models\Distance;
+use HausMietenFinder\Models\Search;
 
 abstract class DistanceStatus
 {
@@ -70,6 +71,7 @@ class Immobiliaren24Service {
                 $house->private_offer = $result->realEstate->privateOffer == "true";
                 $house->picture_url = (string)$result->realEstate->titlePicture->attributes()->href;
                 $house->address = $result->realEstate->address;
+                $house->address_str = $house->getAddressForGoogleMap();
 
                 if ($house->save() == false) {
                     throw new Exception('Could not save a new house');
@@ -88,7 +90,7 @@ class Immobiliaren24Service {
         $distance = Distance::findFirst(array(
             array(
                 "search_id" => $search_id,
-                "house._id" => $house->getId()
+                "house_id" => $house_id
             )
         ));
 
@@ -96,8 +98,10 @@ class Immobiliaren24Service {
             $distance = new Distance();
             $distance->status = DistanceStatus::DefaultStatus;
             $distance->search_id = $search_id;
-            $distance->house = json_decode(json_encode($house));
+            $distance->house_id = $house_id;
         }
+
+        $distance->house = json_decode(json_encode($house));
 
         $di = \Phalcon\DI::getDefault();
 
@@ -122,9 +126,13 @@ class Immobiliaren24Service {
 
     public function GetSearchResults($search_id, $page) {
 
+        $search = Search::findById($search_id);
+
         $match_criteria = array(
             "search_id" => $search_id,
-            "status" => array('$in' => [DistanceStatus::Shortlisted, DistanceStatus::DefaultStatus])
+            "status" => array('$in' => [DistanceStatus::Shortlisted, DistanceStatus::DefaultStatus]),
+            "house.with_kitchen" => true,
+            "house.warm_miete" => array('$lt' => 1500)
         );
 
         /* Getting Distances by Page */
@@ -151,6 +159,7 @@ class Immobiliaren24Service {
         $retVal = new \stdClass();
         $retVal->distances = $distances;
         $retVal->total_count = $aggregate_info['result'][0]['count'];
+        $retVal->search = $search;
 
         return $retVal;
     }
