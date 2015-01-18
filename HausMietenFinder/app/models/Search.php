@@ -20,12 +20,16 @@ class Search extends \Phalcon\Mvc\Collection {
 
     public static function GetOrCreate($data) {
 
-        $record = self::findFirst(array(
-            array(
-                'location' => $data->location,
-                'type' => $data->type
-            )
-        ));
+        if(property_exists($data, 'search_id')) {
+            $record = self::findById($data->search_id);
+        } else {
+            $record = self::findFirst(array(
+                array(
+                    'location' => $data->location,
+                    'type' => $data->type
+                )
+            ));
+        }
 
         if(!$record) {
             $record = new Search();

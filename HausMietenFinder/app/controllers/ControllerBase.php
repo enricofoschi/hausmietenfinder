@@ -35,4 +35,11 @@ class ControllerBase extends Controller
         $this->response->setStatusCode(500, $message);
         $this->response->send();
     }
+
+    public function SendJson($object) {
+        $this->view->disable();
+        $this->response->setHeader("Content-Type", "application/json");
+        $this->response->setContent(json_encode($object));
+        $this->response->send();
+    }
 }

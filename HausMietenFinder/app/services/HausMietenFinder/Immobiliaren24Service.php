@@ -4,6 +4,14 @@ namespace HausMietenFinder\Services;
 
 use HausMietenFinder\Models\House;
 use HausMietenFinder\Models\Distance;
+use DevDes\Helpers\Core\ArraysHelper;
+
+abstract class DistanceStatus
+{
+    const DefaultStatus = 0;
+    const Shortlisted = 1;
+    const Removed = 1;
+}
 
 class Immobiliaren24Service {
 
@@ -11,7 +19,7 @@ class Immobiliaren24Service {
     {
         $url = "http://rest.immobilienscout24.de/restapi/api/search/v1.0/search/"
             . "radius?realestatetype=houserent"
-            . "&geocoordinates=" . $search->latitude . ";" . $search->longitude . ";2"
+            . "&geocoordinates=" . $search->latitude . ";" . $search->longitude . ";75"
             . "&pageNumber=" . $page_num;
 
         echo('\nLoading ' . $url);
@@ -53,16 +61,16 @@ class Immobiliaren24Service {
 
                 if (!$house) {
                     $house = new House();
-                    $house->immobilien24_id = $result->realEstateId;
-                    $house->title = $result->realEstate->title;
-                    $house->with_kitchen = $result->realEstate->builtInKitchen == 'true';
-                    $house->warm_miete = (int)$result->realEstate->calculatedPrice->value;
-                    $house->living_space = (int)$result->realEstate->livingSpace;
-                    $house->exact_address = (bool)$result->realEstate->address->street;
-                    $house->private_offer = $result->realEstate->privateOffer == "true";
-                    $house->picture_url = $result->realEstate->titlePicture->attributes()->href;
-                    $house->address = $result->realEstate->address;
                 }
+                $house->immobilien24_id = (int)$result->realEstateId;
+                $house->title = (string)$result->realEstate->title;
+                $house->with_kitchen = $result->realEstate->builtInKitchen == 'true';
+                $house->warm_miete = (int)$result->realEstate->calculatedPrice->value;
+                $house->living_space = (int)$result->realEstate->livingSpace;
+                $house->exact_address = (bool)$result->realEstate->address->street;
+                $house->private_offer = $result->realEstate->privateOffer == "true";
+                $house->picture_url = (string)$result->realEstate->titlePicture->attributes()->href;
+                $house->address = $result->realEstate->address;
 
                 if ($house->save() == false) {
                     throw new Exception('Could not save a new house');
@@ -86,49 +94,96 @@ class Immobiliaren24Service {
         ));
 
         if(!$distance) {
-
-            $di = \Phalcon\DI::getDefault();
-
-            $loop = 0;
-            do {
-                echo "\nGetting time for " . $house->title;
-
-                if($loop) sleep(1);
-
-                $transit_time =  $di['googlemaps_service']->GetDistanceMinutes($house, $search);
-                $loop++;
-
-            } while($loop < 3 && !$transit_time);
-
-            if($transit_time) {
-                echo "Transit time: " .$transit_time;
-
-                $distance = new Distance();
-                $distance->search_id = $search_id;
-                $distance->house_id = $house_id;
-                $distance->transit_time = $transit_time;
-                $distance->save();
-            }
+            $distance = new Distance();
+            $distance->status = DistanceStatus::DefaultStatus;
+            $distance->search_id = $search_id;
+            $distance->house_id = $house_id;
         }
+
+        $di = \Phalcon\DI::getDefault();
+
+        $loop = 0;
+        do {
+            echo "\nGetting time for " . $house->title;
+
+            if($loop) sleep(1);
+
+            $transit_time =  $di['googlemaps_service']->GetDistanceMinutes($house, $search);
+            $loop++;
+
+        } while($loop < 3 && !$transit_time);
+
+        if($transit_time) {
+            echo "Transit time: " .$transit_time;
+            $distance->transit_time = $transit_time;
+        }
+
+        $distance->save();
     }
 
-    public function GetBestHouses() {
-        $houses = Houses::find(array(
-            "order" => "warm_miete ASC, transit_time ASC",
-            "conditions" => "warm_miete < 1500 AND with_kitchen = 1 AND status != 2 AND transit_time <= 80"
+    public function GetSearchResults($search_id, $page) {
+
+        /* Getting Distances by Page */
+        $distances = Distance::find(array(
+            array(
+                "search_id" => $search_id
+            ),
+            "sort" => array('transit_time', 1),
+            "limit" => 12,
+            "skip" => ($page-1) * 12
         ));
 
-        return $houses;
+        /* Identifying Ids */
+        $house_ids = array_map(function ($e) {
+            return new \MongoId($e->house_id);
+        }, $distances);
+
+        /* Getting Distinct Houses */
+        $houses = House::find(array(
+            array(
+                "_id" => array('$in' => $house_ids)
+            )
+        ));
+
+        /* Matching Houses -> Distances */
+        foreach($distances as $distance)
+        {
+            $distance->house = ArraysHelper::FindFirst($houses, function($house) use($distance) {
+                return $house->getId()->{'$id'} == $distance->house_id;
+            });
+        }
+
+        /* Getting general info about available Results */
+        $aggregate_info = Distance::aggregate(array(
+            array(
+                '$match' => array(
+                    'search_id' => $search_id
+                )
+            ),
+            array(
+                '$group' => array(
+                    '_id'=> null,
+                    'count' => array( '$sum' => 1 )
+                )
+            )
+        ));
+
+        $retVal = new \stdClass();
+        $retVal->distances = $distances;
+        $retVal->total_count = $aggregate_info['result'][0]['count'];
+
+        return $retVal;
     }
 
-    public function UpdateDecision($house_id, $decision) {
-        $house = Houses::findFirst($house_id);
+    public function ChangeDistanceStatus($distance_id, $remove) {
 
-        if($house) {
-            $house->setStatus($decision);
-            $house->save();
+        $distance = Distance::findById($distance_id);
+
+        if($distance) {
+            $distance->status = $remove ? DistanceStatus::Removed : DistanceStatus::Shortlisted;
+            $distance->save();
         } else {
-            die("No house found for " . $house_id);
+            die("No house found for " . $distance_id);
         }
     }
 

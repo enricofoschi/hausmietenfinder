@@ -69,9 +69,8 @@ connection.on('ready', function () {
 		}, function (message, headers, deliveryInfo, messageObject) {
 			// Print messages to stdout
 			var response = JSON.parse(message.data.toString());
+			response.type = response.processing ? 'house_search_processing' : 'house_search_finished';
 
-			response.type = 'house_search_finished';
-			
 			console.log(response);
 			
 			try {

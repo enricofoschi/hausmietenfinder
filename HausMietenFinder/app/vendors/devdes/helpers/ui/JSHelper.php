@@ -45,7 +45,9 @@ class JSHelper {
             $parsers = self::GetParsers()
         );
 
-        return $content;
+        //Use the built-in Jsmin filter
+        $minifier = new \Phalcon\Assets\Filters\Jsmin();
+        return $minifier->filter($content);
     }
 
     /**

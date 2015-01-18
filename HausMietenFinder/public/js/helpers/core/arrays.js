@@ -63,4 +63,19 @@
 
         return retVal;
     };
-})(defineNamespace("Helpers.Data.Arrays"));
+
+    Current.FilterToMatrix = function FilterToMatrix(list, maxColumn) {
+        var retVal = [];
+ 
+        $.each(list, function () {
+            if (!retVal.length) retVal.push([]);
+            if (retVal[retVal.length - 1].length === maxColumn) {
+                retVal.push([]);
+            }
+ 
+            retVal[retVal.length - 1].push(this);            
+        });
+ 
+        return retVal;
+    }
+})(defineNamespace("Helpers.Core.Arrays"));

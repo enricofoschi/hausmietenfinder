@@ -21,7 +21,9 @@ class TemplateFormatter {
         return CacheHelper::GetStatic("template_placeholders", function() {
             return array(
                 "images_url" => CoreHelper::GetBaseUrl() . 'img/',
-                "relative_url" => CoreHelper::GetBaseUrl()
+                "relative_url" => CoreHelper::GetBaseUrl(),
+                "absolute_url" => CoreHelper::GetAbsoluteUrl(),
+                "blank_pixel" => "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
             );
         });
     }

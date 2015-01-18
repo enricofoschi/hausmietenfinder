@@ -10,6 +10,7 @@ return new \Phalcon\Config(array(
         'cacheDir'       => __DIR__ . '/../../app/cache/',
         'servicesDir'    => __DIR__ . '/../../app/services/',
         'baseUri'        => '/PhalconProjects/HausMietenFinder/',
+        'absoluteUri' => 'http://localhost/'
     ),
     'rabbitmq' => array(
         'host' => 'localhost',
@@ -24,5 +25,8 @@ return new \Phalcon\Config(array(
     ),
     'immobilien24' => array(
         'api_secret'        => '/'
+    ),
+    'mongodb' => array(
+        'database' => 'hausmietenfinder'
     )
 ));

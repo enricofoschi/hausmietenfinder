@@ -49,12 +49,16 @@
         var deferred = properties.deferred || $.Deferred();         
         properties.success = function onSuccess(response) {
             activeRequest--;
-            Helpers.UI.Loader.Hide();
+            if(!properties.background && !properties.keepLoader) {
+                Helpers.UI.Loader.Hide();
+            }
             deferred.resolve(response);
         };
         properties.error = function onError() {
             activeRequest--;
-            Helpers.UI.Loader.Hide();
+            if(!properties.background && !properties.keepLoader) {
+                Helpers.UI.Loader.Hide();
+            }
             Helpers.UI.Notifications.Error('Something wrong happened when calling ' + properties.url);
             deferred.reject();
         };
@@ -71,4 +75,4 @@
         return url + (url.indexOf("?") > -1 ? "&" : "?") + param + "=" + value;
     };
 
-})(defineNamespace("Helpers.Data.Communication"));
+})(defineNamespace("Helpers.Core.Communication"));

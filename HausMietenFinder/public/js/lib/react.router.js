@@ -151,7 +151,7 @@ var ReactRouter =
 	  },
 
 	  getDefaultProps: function () {
-	    return {
+	  	return {
 	      activeClassName: 'active'
 	    };
 	  },

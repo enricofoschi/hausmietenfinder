@@ -15,5 +15,4 @@ class House  extends \Phalcon\Mvc\Collection
     public function getUrl() {
         return 'http://www.immobilienscout24.de/expose/' . $this->immobilien24_id();
     }
-
 }

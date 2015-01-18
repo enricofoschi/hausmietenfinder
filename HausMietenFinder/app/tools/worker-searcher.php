@@ -17,12 +17,19 @@ $di = \Phalcon\DI::getDefault();
 $rabbitmq_service = $di['rabbitmq_service'];
 $immobiliaren24_service = $di['immobiliaren24_service'];
 
+/* Listening to RabbitMQ queue */
 $rabbitmq_service->ListenToMessages(
     'hausmietenfinder.search',
     function($msg) use($rabbitmq_service, $immobiliaren24_service) {
 
+        /* Encoding Data */
         $msg_data = json_decode($msg->body);
 
+        /* Notifying the processing */
+        $msg_data->processing = true;
+        $rabbitmq_service->PublishMessage($msg_data->reply_to_queue, json_encode($msg_data));
+
+        /* Triggering the search and saving the last_update field to MongoDB */
         try {
             $search_id = $msg_data->{'$id'};
 
@@ -42,10 +49,14 @@ $rabbitmq_service->ListenToMessages(
             echo PHP_EOL . PHP_EOL . 'Exception: ' . $ex->getMessage() . PHP_EOL;
         }
 
-        $rabbitmq_service->PublishMessage($msg_data->reply_to_queue, $msg->body);
+        /* Notifying of the end of the process */
+        $msg_data->processing = false;
+        $msg_data->finished = true;
+        $rabbitmq_service->PublishMessage($msg_data->reply_to_queue, json_encode($msg_data));
 
         echo PHP_EOL . PHP_EOL . "Message parsed";
 
+        /* Most important part: acknowledging */
         $rabbitmq_service->Acknowledge($msg);
 });
 

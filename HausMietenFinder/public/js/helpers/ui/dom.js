@@ -58,5 +58,9 @@
     		cachedJS.push(newJS);
     	}
     };
+
+    Current.ScrollTo = function ScrollTo($element) {
+        $("html, body").animate({ scrollTop: $element ? $element.offset().top - 15 : 0 });
+    };
     
 })(defineNamespace("Helpers.UI.DOM"));

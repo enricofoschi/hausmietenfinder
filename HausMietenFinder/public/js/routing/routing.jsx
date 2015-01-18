@@ -46,7 +46,8 @@ $.extend(defineNamespace("Components.App"), {
       Helpers.UI.DOM.GetBody().trigger('new_routing', {
         controller: this.controller,
         action: this.action,
-        properties: this.route_properties
+        extra_properties: this.extra_properties,
+        params: this.route_params
       });
     },
 
@@ -60,35 +61,27 @@ $.extend(defineNamespace("Components.App"), {
 
     render: function() {
       
-      /* Getting URL */
-      var url = this.getParams().splat || '';
-
-      /* Getting current routes */
-      var routes = this.getRoutes();
-      var currentRoute = routes[routes.length - 1];
-
       /* Getting route properties */
-      this.route_properties = routesExtraProperties[currentRoute.name] || {};
+      var routes = this.getRoutes();
+      this.currentRoute = routes[routes.length - 1];
+      var url = this.currentRoute.path.replace('${relative_url}', '');
+      this.route_params = this.getParams();
 
-      /* Cleaning URL from hash parameters and querystring */
-      var cutQuery = url.indexOf('?');
-      if(cutQuery > -1) {
-        url = url.substring(0, cutQuery);
-      }
-
-      var cutHash = url.indexOf('#');
-      if(cutHash > -1) {
-        url = url.substring(0, cutHash);
-      }
+      var routeName = this.currentRoute.name.replace('_with_paging', '');
+      this.extra_properties = routesExtraProperties[routeName] || {};
 
       /* Identifying URL parts */
       var urlParts = url.split('/');
-      this.controller = (urlParts.length && urlParts[0] ? urlParts[0] : 'index').toLowerCase();
-      this.action = (urlParts.length > 1 ? urlParts[1] : 'index').toLowerCase();
+      this.controller = this.extra_properties.controller || (urlParts.length && urlParts[0] ? urlParts[0] : 'index').toLowerCase();
+      this.action = this.extra_properties.action || (urlParts.length > 1 ? urlParts[1] : 'index').toLowerCase();
       
       if(Views[this.controller] && Views[this.controller][this.action]) {
         return (
-          React.createElement(Views[this.controller][this.action].Main, null)
+          React.createElement(Views[this.controller][this.action].Main, {
+            route_params: this.route_params,
+            current_route: this.currentRoute,
+            current_url: url
+          })
         )
       } else {
         return (
@@ -115,7 +108,7 @@ var routingInit = function initialization() {
     bodyRef.data('viewClass', newClassName);
 
     /* route properties */
-    if(data.properties.fullWidth) {
+    if(data.extra_properties.fullWidth) {
       Helpers.UI.DOM.GetMainContent().removeClass('container');
     } else {
       Helpers.UI.DOM.GetMainContent().addClass('container');

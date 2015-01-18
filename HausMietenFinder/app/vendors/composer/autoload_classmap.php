@@ -6,15 +6,14 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
-    'DevDes\\Helpers\\Data\\ArraysHelper' => $vendorDir . '/devdes/helpers/core/ArraysHelper.php',
-    'DevDes\\Helpers\\Data\\CacheHelper' => $vendorDir . '/devdes/helpers/core/CacheHelper.php',
-    'DevDes\\Helpers\\Data\\ConfigHelper' => $vendorDir . '/devdes/helpers/core/ConfigHelper.php',
-    'DevDes\\Helpers\\Data\\CoreHelper' => $vendorDir . '/devdes/helpers/core/CoreHelper.php',
-    'DevDes\\Helpers\\Data\\FormatingHelper' => $vendorDir . '/devdes/helpers/core/FormatingHelper.php',
-    'DevDes\\Helpers\\Data\\IOHelper' => $vendorDir . '/devdes/helpers/core/IOHelper.php',
-    'DevDes\\Helpers\\Data\\RedisHelper' => $vendorDir . '/devdes/helpers/core/RedisHelper.php',
-    'DevDes\\Helpers\\Data\\StringsHelper' => $vendorDir . '/devdes/helpers/core/StringsHelper.php',
-    'DevDes\\Helpers\\Data\\TimeHelper' => $vendorDir . '/devdes/helpers/core/TimeHelper.php',
+    'DevDes\\Helpers\\Core\\ArraysHelper' => $vendorDir . '/devdes/helpers/core/ArraysHelper.php',
+    'DevDes\\Helpers\\Core\\CacheHelper' => $vendorDir . '/devdes/helpers/core/CacheHelper.php',
+    'DevDes\\Helpers\\Core\\ConfigHelper' => $vendorDir . '/devdes/helpers/core/ConfigHelper.php',
+    'DevDes\\Helpers\\Core\\CoreHelper' => $vendorDir . '/devdes/helpers/core/CoreHelper.php',
+    'DevDes\\Helpers\\Core\\FormatingHelper' => $vendorDir . '/devdes/helpers/core/FormatingHelper.php',
+    'DevDes\\Helpers\\Core\\IOHelper' => $vendorDir . '/devdes/helpers/core/IOHelper.php',
+    'DevDes\\Helpers\\Core\\StringsHelper' => $vendorDir . '/devdes/helpers/core/StringsHelper.php',
+    'DevDes\\Helpers\\Core\\TimeHelper' => $vendorDir . '/devdes/helpers/core/TimeHelper.php',
     'DevDes\\Helpers\\Net\\RequestHelper' => $vendorDir . '/devdes/helpers/net/RequestHelper.php',
     'DevDes\\Helpers\\UI\\AssetsHelper' => $vendorDir . '/devdes/helpers/ui/AssetsHelper.php',
     'DevDes\\Helpers\\UI\\CSSHelper' => $vendorDir . '/devdes/helpers/ui/CSSHelper.php',

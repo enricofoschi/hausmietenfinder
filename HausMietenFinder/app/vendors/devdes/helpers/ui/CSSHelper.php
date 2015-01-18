@@ -65,6 +65,10 @@ class CSSHelper {
             $pre_include = self::GetMixins()
         );
 
+        //Use the built-in Jsmin filter
+        $minifier = new \Phalcon\Assets\Filters\Cssmin();
+        return $minifier->filter($content);
+
         return $content;
     }
 

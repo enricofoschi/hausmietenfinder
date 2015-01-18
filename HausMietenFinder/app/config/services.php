@@ -11,6 +11,7 @@ use Phalcon\Mvc\Dispatcher as PhDispatcher;
 use HausMietenFinder\Services\Immobiliaren24Service;
 use HausMietenFinder\Services\GoogleMapsService;
 use DevDes\Services\Messaging\RabbitMQService;
+use DevDes\Services\Data\MongoDBService;
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -54,18 +55,6 @@ $di->set('view', function () use ($config) {
 
     return $view;
 }, true);
-
-/**
- * Database connection is created based in the parameters defined in the configuration file
- */
-$di->set('db', function () use ($config) {
-    return new DbAdapter(array(
-        'host' => $config->database->host,
-        'username' => $config->database->username,
-        'password' => $config->database->password,
-        'dbname' => $config->database->dbname
-    ));
-});
 
 /**
  * If the configuration specify the use of metadata adapter use it or use memory otherwise
@@ -133,9 +122,13 @@ $di->set('dispatcher', function() use ($di) {
 }, true);
 
 // Simple database connection to localhost
-$di->set('mongo', function() {
-    $mongo = new MongoClient();
-    return $mongo->selectDB("hausmietenfinder");
+$di->set('mongodb_service', function() use($config) {
+    return new MongoDBService($config->mongodb->database);
+}, true);
+
+// Simple database connection to localhost required for Phalcon model mappings
+$di->set('mongo', function() use($di) {
+    return $di['mongodb_service']->getDatabase();
 }, true);
 
 $di->set('collectionManager', function(){

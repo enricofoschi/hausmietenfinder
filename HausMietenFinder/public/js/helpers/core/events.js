@@ -26,4 +26,4 @@
     		item(info != undefined ? info : {});
     });
   };
- })(defineNamespace("Helpers.Data.Events"));
+ })(defineNamespace("Helpers.Core.Events"));

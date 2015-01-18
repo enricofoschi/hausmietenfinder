@@ -9,6 +9,7 @@ $loader = new \Phalcon\Loader();
 $loader->registerNameSpaces(
   array(
       "HausMietenFinder\Services" => $config->application->servicesDir . "HausMietenFinder",
+      "DevDes\Services\Data" => $config->application->servicesDir . "DevDes/Data",
       "DevDes\Services\Messaging" => $config->application->servicesDir . "DevDes/Messaging",
       "HausMietenFinder\Models" => $config->application->modelsDir
   )

@@ -1,0 +1,6 @@
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  color: inherit !important;
+  background-color: inherit !important;
+  border-color: inherit !important;
+}

@@ -16,27 +16,8 @@
 		submit: function submit(data) {
 			var thisRef = this;
 
-			Helpers.Core.Communication.Post({
-				url: 'houses/search',
-				data: $.extend(data, {
-					client_id: MainProperties.RabbitMQ.client_id,
-					rabbitMQQueue: MainProperties.RabbitMQ.rabbitMQQueue
-				}),
-			}).then(function onSuccess(response) {
-
-				if(response.available) {
-					thisRef.onAvailable(response.search_id);
-				} else {
-					Helpers.UI.Loader.Show('Suchen und Berechnung der Entfernung. Dies kann bis zu 10 Minuten dauern.');
-
-					Helpers.Core.Events.Subscribe('node_house_search_finished', function() {
-						if(mounted) {
-							Helpers.UI.Loader.Hide();
-							thisRef.onAvailable(response.search_id);
-						}
-					});
-				}
-			});
+			var searchService = new Services.HausMietenFinder.Search();
+			searchService.search(data).then(this.onAvailable);
 		},
 
 		componentDidMount: function() {

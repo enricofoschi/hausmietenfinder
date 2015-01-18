@@ -3,6 +3,7 @@
 		<component>
 			<files>
 				<file>lib/bootstrap-3.1.1.css</file>
+				<file>lib/datatables-1.10.4.css</file>
 			</files>
 		</component>
 		<component parsers="less">

@@ -17,6 +17,7 @@
       </files>
       <folders>
         <folder>helpers</folder>
+        <folder>services</folder>
         <folder>components</folder>
         <folder>views</folder>
       </folders>

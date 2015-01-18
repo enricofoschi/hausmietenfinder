@@ -1,6 +1,7 @@
 <?php
 
 use HausMietenFinder\Models\Search;
+use HausMietenFinder\Models\Distance;
 use DevDes\Helpers\Core\RedisHelper;
 
 class HousesController extends ControllerBase
@@ -17,10 +18,12 @@ class HousesController extends ControllerBase
         $this->view->houses = $this->immobiliaren24_service->UpdateDecision($house_id, $decision);
     }
 
-    public function testAction() {
+    public function getSearchAction($search_id, $page) {
         $this->view->disable();
 
-        RedisHelper::Test();
+        $search_result = $this->immobiliaren24_service->GetSearchResults($search_id, $page);
+
+        parent::SendJson($search_result);
     }
 
     public function searchAction() {
@@ -34,7 +37,7 @@ class HousesController extends ControllerBase
         $search = Search::GetOrCreate($data);
 
         /* If not updated recently, sending update to the task scheduler */
-        $available = property_exists($search, 'last_update');
+        $available = property_exists($search, 'last_update') && !property_exists($data, 'search_id');
 
         $json_search_object = array(
             '$id' => $search->getId()->{'$id'},
@@ -53,7 +56,13 @@ class HousesController extends ControllerBase
             'search_id' => $search->getId()->{'$id'},
             'available' => $available
         ));
+    }
 
+    public function changeStatusAction() {
+
+        $data = $this->request->getJsonRawBody();
+
+        $this->immobilien24_service->ChangeDistanceStatus($data->distance_id, $data->remove);
     }
 }
 
