@@ -33,6 +33,7 @@
 					thisRef.state.current_page = Math.ceil(response.total_count / 12);
 					thisRef.loadData();
 				} else {
+
 					thisRef.setState({
 						distances: response.distances,
 						total: response.total_count,
@@ -150,7 +151,7 @@
 													</div>
 
 													<div className="bottom10 pfull10">
-														<textarea placeholder="Aufzeichnungen" className="form-control full-width" rows="3" defaultValue={ distance.notes } ref={'notes_' + distance._id.$id}></textarea>
+														<textarea placeholder="Aufzeichnungen" className="form-control full-width" rows="3" value={ distance.notes } ref={'notes_' + distance._id.$id}></textarea>
 													</div>
 
 													<div className="border-top choices-container">
