@@ -59,10 +59,11 @@
 			var sourceElement = $(e.target);
 			var distanceId = sourceElement.parents(".house-container:first").attr("data-distanceid");
 			var removeItem = sourceElement.attr("data-remove") === "1";
+			var notes = this.refs['notes_' + distanceId].getDOMNode().value;
 
 			var searchService = new Services.HausMietenFinder.Distance();
 
-			searchService.changeStatus(distanceId, removeItem).then(function onSuccess(response) {
+			searchService.changeStatus(distanceId, notes, removeItem).then(function onSuccess(response) {
 				thisRef.loadData(true);
 			});
 		},
@@ -146,7 +147,11 @@
 																</a>
 															</div>
 														</div>
-													</div>		
+													</div>
+
+													<div className="bottom10 pfull10">
+														<textarea placeholder="Aufzeichnungen" className="form-control full-width" rows="3" defaultValue={ distance.notes } ref={'notes_' + distance._id.$id}></textarea>
+													</div>
 
 													<div className="border-top choices-container">
 														<a type='button' className="choice choice-success" onClick={thisRef.onChangeStatus}>Merken</a>

@@ -168,12 +168,13 @@ class Immobiliaren24Service {
         return $retVal;
     }
 
-    public function ChangeDistanceStatus($distance_id, $remove) {
+    public function ChangeDistanceStatus($distance_id, $notes, $remove) {
 
         $distance = Distance::findById($distance_id);
 
         if($distance) {
             $distance->status = $remove ? DistanceStatus::Removed : DistanceStatus::Shortlisted;
+            $distance->notes = $notes;
             $distance->save();
         } else {
             die("No house found for " . $distance_id);

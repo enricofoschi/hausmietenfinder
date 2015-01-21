@@ -9,11 +9,12 @@
 			});
 		};
 
-		self.changeStatus = function(distanceId, removeItem) {
+		self.changeStatus = function(distanceId, notes, removeItem) {
 			return Helpers.Core.Communication.Post({
 				url: 'houses/changestatus',
 				data: {
 					distance_id: distanceId,
+					notes: notes,
 					remove: removeItem 
 				}
 			});

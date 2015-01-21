@@ -63,7 +63,11 @@ class HousesController extends ControllerBase
 
         $data = $this->request->getJsonRawBody();
 
-        $this->immobiliaren24_service->ChangeDistanceStatus($data->distance_id, $data->remove);
+        $this->immobiliaren24_service->ChangeDistanceStatus(
+            $data->distance_id,
+            $data->notes,
+            $data->remove
+        );
 
         parent::SendJson();
     }
