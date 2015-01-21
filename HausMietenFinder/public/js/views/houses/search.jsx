@@ -18,7 +18,7 @@
 			this.loadData();
 		},
 
-		loadData: function loadData() {
+		loadData: function loadData(noScroll) {
 
 			var thisRef = this;
 
@@ -38,7 +38,10 @@
 						total: response.total_count,
 						search: response.search
 					});
-					Helpers.UI.DOM.ScrollTo($(thisRef.getDOMNode()));
+					
+					if(!noScroll) {
+						Helpers.UI.DOM.ScrollTo($(thisRef.getDOMNode()));
+					}
 				}
 			});
 		},
@@ -60,7 +63,7 @@
 			var searchService = new Services.HausMietenFinder.Distance();
 
 			searchService.changeStatus(distanceId, removeItem).then(function onSuccess(response) {
-				thisRef.loadData();
+				thisRef.loadData(true);
 			});
 		},
 
