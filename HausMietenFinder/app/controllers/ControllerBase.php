@@ -11,6 +11,7 @@ class ControllerBase extends Controller
     {
         // Basic Properties
         $this->view->main_properties = array(
+            'absolute_url' => CoreHelper::GetAbsoluteUrl(),
             "base_url" => CoreHelper::GetBaseUrl(),
             "base_url_api" => CoreHelper::GetBaseUrl() . '-',
             "base_url_css" => CSSHelper::GetUrl(),
