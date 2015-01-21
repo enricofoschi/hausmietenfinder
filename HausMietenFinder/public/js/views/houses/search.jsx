@@ -33,7 +33,6 @@
 					thisRef.state.current_page = Math.ceil(response.total_count / 12);
 					thisRef.loadData();
 				} else {
-
 					thisRef.setState({
 						distances: response.distances,
 						total: response.total_count,
@@ -98,14 +97,17 @@
 				content = (
 					<div className="houses-list">
 						{$.map(distanceGrid, function onDistanceGrid(distanceRow, rowIndex) {
+
+							var hashKey = $.map(distanceRow, function(dCol) {return dCol._id.$id}).join();
+
 							return (
-								<div className="row" key={rowIndex}>
+								<div className="row" key={hashKey}>
 									{$.map(distanceRow, function onLoop(distance, colIndex) {
 										var house = distance.house;
 										var houseLink = 'http://www.immobilienscout24.de/expose/' + house.immobilien24_id;
 
 										return (
-											<div data-distanceid={distance._id.$id} className="house-container col-md-3 col-sm-2" key={colIndex}>
+											<div data-distanceid={distance._id.$id} className="house-container col-md-3 col-sm-2" key={distance._id.$id}>
 												<div className={'house-content ' + (distance.status == 1 ? 'shortlisted' : '')}>
 													<i className="fa fa-check-circle checked text-success"></i>
 													<div className="picture-container">
@@ -151,7 +153,7 @@
 													</div>
 
 													<div className="bottom10 pfull10">
-														<textarea placeholder="Aufzeichnungen" className="form-control full-width" rows="3" value={ distance.notes } ref={'notes_' + distance._id.$id}></textarea>
+														<textarea placeholder="Aufzeichnungen" className="form-control full-width" rows="3" defaultValue={ distance.notes } ref={'notes_' + distance._id.$id}></textarea>
 													</div>
 
 													<div className="border-top choices-container">
