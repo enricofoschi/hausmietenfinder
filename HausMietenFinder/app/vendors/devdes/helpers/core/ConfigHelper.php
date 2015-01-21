@@ -11,11 +11,11 @@ class ConfigHelper {
 
         return CacheHelper::GetStatic("main_config", function() {
             $config = include CoreHelper::GetAppRoot() . "config/config.php";
-            $pwd_file = CoreHelper::GetAppRoot() . "/config/main.pwd.php";
+            $pwd_file = CoreHelper::GetAppRoot() . "/config/local.config.php";
             if(file_exists($pwd_file)) {
                 include $pwd_file;
             } else {
-                include CoreHelper::GetAppRoot() . "/config/main.pwd.removeme.php";
+                include CoreHelper::GetAppRoot() . "/config/local.config.default.php";
             }
 
             return $config;
