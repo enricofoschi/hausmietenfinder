@@ -42,7 +42,6 @@
 						</div>
 					</div>
 				</div>
-				<Link to="default" params={{splat:'Test'}}>Test</Link> - <Link to="default" params={{splat:''}}>Home</Link>	        
 			</div>
 	      );
 	     }
