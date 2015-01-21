@@ -4,6 +4,6 @@
   "description": "HausMietenFinder node server",
   "dependencies": {
     "express": "4.x",
-    "socket.io": "^1.2.1"
+    "socket.io": "1.x"
   }
 }
