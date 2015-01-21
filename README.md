@@ -4,6 +4,8 @@
 
 Haus Mieten Finder helps you find accomodations (houses only for now) next to a specified address sorting all results by the time it takes to get there with public transport.
 
+Sample search result: http://bit.ly/1woWf3O
+
 ## How?
 
 The UI uses Google Places autocomplete API to get LAT/LON, that are then fed to ImmobiliarenScout24 to get a list of all possible houses in the range of 75km. Each house location then is fed to Google Directions API (limit of 2k a day :( ) to get the fastest possible route by public transit on the next Tuesday morning at 7 AM. Why Tuesday morning at 7 AM? 
