@@ -16,6 +16,8 @@ var connectedClients = {};
 // Socket.IO On Connected event
 io.on('connection', function(socket){
 
+	console.log("Socket connection ready");
+
 	// Adding the client to the list of connected clients
 	if(!connectedClients[socket.id]) {
 		connectedClients[socket.id] = socket;
@@ -44,16 +46,19 @@ io.on('connection', function(socket){
 /* AMQP Issues */
 connection.on('error', function(error) {
 	
+	console.log('Node-AMQP error:');
+
 	if(error.code === 404) {
 		console.log('Queue ' + rabbitMQQueue + ' not there yet');
 	} else {
-		console.log('Node-AMQP error:');
 		console.log(error);
 	}
 });
 
 /* AMQP Connection */
 connection.on('ready', function () {
+
+	console.log("Rabbit connection ready");
 
 	// Use the default 'amq.topic' exchange
 	connection.queue(rabbitMQQueue, {

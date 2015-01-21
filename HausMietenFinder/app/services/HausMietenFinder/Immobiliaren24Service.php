@@ -103,24 +103,26 @@ class Immobiliaren24Service {
 
         $distance->house = json_decode(json_encode($house));
 
-        unset($distance->house->_id);
+        unset($distance->house->_id); // required otherwise this will mess up as Mongo DB recognizes it as a DBRef patterns
 
-        $di = \Phalcon\DI::getDefault();
+        if(!property_exists($distance, "transit_time") || !$distance->transit_time) {
+            $di = \Phalcon\DI::getDefault();
 
-        $loop = 0;
-        do {
-            echo "\nGetting time for " . $house->title;
+            $loop = 0;
+            do {
+                echo "\nGetting time for " . $house->title;
 
-            if($loop) sleep(1);
+                if ($loop) sleep(1);
 
-            $transit_time =  $di['googlemaps_service']->GetDistanceMinutes($house, $search);
-            $loop++;
+                $transit_time = $di['googlemaps_service']->GetDistanceMinutes($house, $search);
+                $loop++;
 
-        } while($loop < 3 && !$transit_time);
+            } while ($loop < 3 && !$transit_time);
 
-        if($transit_time) {
-            echo "Transit time: " .$transit_time;
-            $distance->transit_time = $transit_time;
+            if ($transit_time) {
+                echo "Transit time: " . $transit_time;
+                $distance->transit_time = $transit_time;
+            }
         }
 
         $distance->save();

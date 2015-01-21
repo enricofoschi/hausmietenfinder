@@ -97,13 +97,14 @@
 								<div className="row" key={rowIndex}>
 									{$.map(distanceRow, function onLoop(distance, colIndex) {
 										var house = distance.house;
+										var houseLink = 'http://www.immobilienscout24.de/expose/' + house.immobilien24_id;
 
 										return (
 											<div data-distanceid={distance._id.$id} className="house-container col-md-3 col-sm-2" key={colIndex}>
 												<div className={'house-content ' + (distance.status == 1 ? 'shortlisted' : '')}>
 													<i className="fa fa-check-circle checked text-success"></i>
 													<div className="picture-container">
-														<img src={house.picture_url.replace(/60x60/g, '200x150')} className="full-width" />
+														<a href={houseLink} target="_blank"><img src={house.picture_url.replace(/60x60/g, '200x150')} className="full-width" /></a>
 													</div>
 
 													<div className="border-bottom background-f0">
@@ -132,7 +133,7 @@
 
 														<div className="row">
 															<div className="col-xs-6 text-center">
-																<a href={'http://www.immobilienscout24.de/expose/' + house.immobilien24_id} target="_blank">
+																<a href={houseLink} target="_blank">
 																	<i className="fa fa-home"></i> Öffnen
 																</a>
 															</div>

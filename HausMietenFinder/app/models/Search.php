@@ -23,15 +23,6 @@ class Search extends \Phalcon\Mvc\Collection {
         if(property_exists($data, 'search_id')) {
             $record = self::findById($data->search_id);
         } else {
-            $record = self::findFirst(array(
-                array(
-                    'location' => $data->location,
-                    'type' => $data->type
-                )
-            ));
-        }
-
-        if(!$record) {
             $record = new Search();
             $record->location = $data->location;
             $record->type = $data->type;
