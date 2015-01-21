@@ -7,7 +7,7 @@ ReactRouter.run(routes, ReactRouter.HistoryLocation, function (Handler) {
 
 // Initializing NodeJS Server Connection
 var socketIONode = MainProperties.absolute_url;
-socketIONode = socketIONode.substr(0, socketIONode.lastIndexOf('/')) + ':3000/';
+socketIONode = socketIONode.substr(0, socketIONode.indexOf('/', 8)) + ':3000/';
 var socket = io.connect(socketIONode);
 socket.on('connect', function () {
   socket.on('message', function (msg) {
