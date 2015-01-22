@@ -69,7 +69,11 @@ class Immobiliaren24Service {
                 $house->living_space = (int)$result->realEstate->livingSpace;
                 $house->exact_address = (bool)$result->realEstate->address->street;
                 $house->private_offer = $result->realEstate->privateOffer == "true";
-                $house->picture_url = (string)$result->realEstate->titlePicture->attributes()->href;
+
+                if($result->realEstate->titlePicture) {
+                    $house->picture_url = (string)$result->realEstate->titlePicture->attributes()->href;
+                }
+
                 $house->address = $result->realEstate->address;
                 $house->address_str = $house->getAddressForGoogleMap();
 
@@ -136,7 +140,7 @@ class Immobiliaren24Service {
             "search_id" => $search_id,
             "status" => array('$in' => [DistanceStatus::Shortlisted, DistanceStatus::DefaultStatus]),
             "house.with_kitchen" => true,
-            "house.warm_miete" => array('$lt' => 1500)
+            "house.warm_miete" => array('$lt' => 1600)
         );
 
         /* Getting Distances by Page */
