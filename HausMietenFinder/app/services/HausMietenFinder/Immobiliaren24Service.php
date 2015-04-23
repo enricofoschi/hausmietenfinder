@@ -18,7 +18,7 @@ class Immobiliaren24Service {
     public function GetHouses($search, $page_num=1, $final_list=null)
     {
         $url = "http://rest.immobilienscout24.de/restapi/api/search/v1.0/search/"
-            . "radius?realestatetype=houserent"
+            . "radius?realestatetype=apartmentRent"
             . "&geocoordinates=" . $search->latitude . ";" . $search->longitude . ";75"
             . "&pageNumber=" . $page_num;
 
